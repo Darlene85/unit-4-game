@@ -5,39 +5,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
+
+
+
     <title>Crystal Collector</title>
 </head>
 
 <body>
     <h1>Crystal Collector</h1>
+
     <p>You will be given a random number at the start of the game.</p>
-    <p>There are four crystals below. By clicking on the crystal you will add a specific amount of points to your total score</p>
+    <p>There are four crystals below. By clicking on the crystal you will add a specific amount of points to your total score.</p>
     <p>You win the game by matching your total score to random number, you lose the game if your total score goes above therandom
         number.
     </p>
+    <div class="picture">
+        <img src="https://magicalunicorncrystals.com/wp-content/uploads/2017/05/unicorn-logo-600x574.png" alt="unicorn">
+    </div>
     <p>The value of each crystal is hidden from you until you click on it.</p>
     <p>Each time when the game starts, the game will change the value of each crystal.</p>
-    <h2 id="wins-text"></h2>
-    <h2 id="losses-text"></h2>
-    <script>
-        var wins = 0
-        var losses = 0
-        var computerGuess = 0
-         
-        var winsText = document.getElementById("wins-text");
-        var lossesText = document.getElementById("losses-text");
 
+    <br>
 
+    <h2>random number:</h2>
+    <div class="computerNumber"></div>
 
+    <br>
 
+    <br>
+    <button class="btn">
+        <img src="redjewel.jpg" height="100px" width="100px">
+    </button>
+    <button class="btn">
+        <img src="whitejewel.jpg" height="100px" width="100px">
+    </button>
+    <button class="btn">
+        <img src="bluejewel.jpg" height="100px" width="100px">
+    </button>
+    <button class="btn">
+        <img src="greenjewel.jpg" height="100px" width="100px">
+    </button>
 
-        winsText.textContent = "wins:" + wins;
-        lossesText.textContent = "losses:" + losses;
-    </script>
+    <br>
+    <h2>total score:</h2>
+    <div class="totalScore"></div>
 
+    <div class="scoreboardWins">
+        <h2> wins:</h2>
+    </div>
+    <div class="scoreboardLosses">
+        <h2>losses:</h2>
+    </div>
+
+    <h3>
+        <button id="restart">RESTART</button>
+    </h3>
 
 
 </body>
+
+<script>
+    var wins = 0;
+    var losses = 0;
+    var computerNumber = getRandomInt(19, 120);
+    var totalScore = 0;
+
+
+    $(".computerNumber").text(computerNumber);
+
+    $(".totalScore").text(totalScore);
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+
+    $(".btn").each(function () {
+        var random = getRandomInt(1, 12);
+        $(this).attr("value", random);
+        console.log(this);
+
+    });
+
+    $(".btn").on("click", function () {
+        var value = parseInt(this.value);
+        console.log(value);
+        totalScore = totalScore + value;
+        $(".totalScore").text(totalScore);
+
+
+        if (totalScore === computerNumber) {
+            alert("You won!")
+            console.log("You won!");
+            wins++;
+        }
+
+        if (totalScore > computerNumber) {
+            alert("You lose!")
+            console.log("You lose!");
+            losses++;
+        }
+
+    });
+
+    function restartGame() {
+        $(".computerNumber").text(computerNumber);
+
+        $(".totalScore").text(totalScore);
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+
+        $(".btn").each(function () {
+            var random = getRandomInt(1, 12);
+            $(this).attr("value", random);
+            console.log(this);
+
+        });
+
+    }
+
+
+</script>
 
 </html>
